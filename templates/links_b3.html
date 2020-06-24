@@ -1,0 +1,71 @@
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+<script>
+    $(function () {
+        $('#id_deadline').datepicker({
+           
+        });
+    });
+</script>
+
+{% include 'messages.html' %}
+
+<div class="container">
+    <ol class='breadcrumb'>
+        
+        
+        {% block post_detail_link %}
+        {% endblock %}
+        <li class="nav-item active"><a href="/" class="nav-link">home</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">about us</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">FAQs</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">How it works</a>
+            </li>
+            <li class="nav-item"><a href="{% url 'assignments:search' %}" class="nav-link">View assignments</a>
+            </li>
+            <li class="nav-item"><a href="#" class="nav-link">Contact us</a></li>
+            <li class="nav-item dropdown" >
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Chats
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    {% if request.user.is_superuser %}
+                    <a href="#" class="dropdown-item">Chat with client</a>
+                    <a href="/messages/{{writer}}" class="dropdown-item">Chat with writer</a>
+                    {% endif %}
+                    <a href="/messages/{{support}}" class="dropdown-item">Chat with support</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Services offered
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a href="#" class="dropdown-item">Do my Math Assignment for me </a>
+                    <a href="#" class="dropdown-item">Do my biology work for me</a>
+                    <a href="#" class="dropdown-item">Programming Homework help</a>
+                    <a href="#" class="dropdown-item">English Homework Help</a>
+                </div>
+            </li>
+            <li class="nav-item"><a href="{% url 'assignments:upload' %}" class="nav-link">order now</a></li>
+            {% if request.user.is_authenticated%}
+            <li class="nav-item">
+                <a href="{% url 'authentication:logout' %}" class="nav-link">log out</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a href="{% url 'payments:select' %}">Memberships</a>
+                <a href="{% url 'authentication:login' %}" class="login">log in</a>
+                <a href="{% url 'authentication:sign_up' %}" class="template-btn">sign up</a>
+            </li>
+            {% endif %}
+    </ol>
+</div>

@@ -1,0 +1,11 @@
+How to get an SSL enabled virtual host
+1. Do a DNS entry on rackspace
+2. Create the webroot folder in /var/www/html/mynewdomain.actserv.co.ke with an$
+3. Create http config with the https redirect commented out in 000-default
+4. Restart/reload apache for the new config to take effect
+5. Go to http://mynewdomain.actserv.co.ke to confirm that it works it works and$
+6. Run certbot --webroot certonly -w /var/www/html/mynewdomain.actserv.co.ke -d$
+7. The above command does NOT require apache to be shutdown.IT DOES require the$
+8. Create https config and uncomment https redirect
+9. Delete the empty index.html in the webroot and replace it with site content
+10. Reload/Restart apache

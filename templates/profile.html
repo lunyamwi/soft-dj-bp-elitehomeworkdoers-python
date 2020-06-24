@@ -1,0 +1,89 @@
+{% include 'links.html' %}
+{% include 'header.html' %}
+{% load humanize %}
+<hr>
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h3>My Profile</h3>
+            <button type="button" class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"><i class="fa fa-edit"></i>Edit</button>
+            <p>Background Info.</p>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped table-hover table-bordered">
+
+                <tbody>
+                  <tr>
+                    <th scope="row">Country</th>
+                    <td colspan="2">Kenya</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Name</th>
+                    <td colspan="2">{{request.user.first_name}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Email</th>
+                    <td colspan="2">{{request.user.email}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Password</th>
+                    <td>
+                        ....... <button type="button" class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"><i class="fa fa-edit"></i>Edit</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">City</th>
+                    <td colspan="2">{{request.user.city}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Address</th>
+                    <td colspan="2">{{request.user.address}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Zip Code</th>
+                    <td colspan="2">{{request.user.zip}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Timezone</th>
+                    <td colspan="2">{{request.user.email}}
+                    <button type="button" class="btn btn-secondary btn-sm pull-right" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"><i class="fa fa-clock-o"></i>Update Timezone.</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+    </div>
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Recipient:</label>
+                  <input type="text" class="form-control" id="recipient-name">
+                </div>
+                <div class="form-group">
+                  <label for="message-text" class="col-form-label">Message:</label>
+                  <textarea class="form-control" id="message-text"></textarea>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Send message</button>
+            </div>
+          </div>
+        </div>
+      </div>
+     
+      </div>
+</div>
+
+{% include 'scripts.html' %}

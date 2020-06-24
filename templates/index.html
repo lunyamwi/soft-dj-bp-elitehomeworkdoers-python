@@ -1,0 +1,369 @@
+{% load static %}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+{% include 'links.html' %}
+
+<body>
+    <style>
+          body {font-family: Arial, Helvetica, sans-serif;}
+        * {box-sizing: border-box;}
+
+        /* Button used to open the chat form - fixed at the bottom of the page */
+        .open-button {
+        background-color: #555;
+        color: white;
+        border-radius:12px;
+        padding: 16px 20px;
+        border: none;
+        cursor: pointer;
+        opacity: 0.8;
+        position: fixed;
+        bottom: 23px;
+        right: 28px;
+        width: 280px;
+        }
+
+        /* The popup chat - hidden by default */
+        .chat-popup {
+        display: none;
+        position: fixed;
+        bottom: 0;
+        right: 15px;
+        border: 3px solid #f1f1f1;
+        z-index: 9;
+        }
+
+        /* Add styles to the form container */
+        .form-container {
+        max-width: 300px;
+        padding: 10px;
+        background-color: white;
+        }
+
+        /* Full-width textarea */
+        .form-container textarea {
+        width: 100%;
+        padding: 15px;
+        margin: 5px 0 22px 0;
+        border: none;
+        background: #f1f1f1;
+        resize: none;
+        min-height: 200px;
+        }
+
+        /* When the textarea gets focus, do something */
+        .form-container textarea:focus {
+        background-color: #ddd;
+        outline: none;
+        }
+
+        /* Set a style for the submit/send button */
+        .form-container .btn {
+        background-color: #4CAF50;
+        color: white;
+        padding: 16px 20px;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        margin-bottom:10px;
+        opacity: 0.8;
+        }
+
+        /* Add a red background color to the cancel button */
+        .form-container .cancel {
+        background-color: red;
+        }
+
+        /* Add some hover effects to buttons */
+        .form-container .btn:hover, .open-button:hover {
+        opacity: 1;
+        }
+    </style>
+    <!-- Preloader Starts -->
+    <div class="preloader">
+        <div class="spinner"></div>
+    </div>
+    <!-- Preloader End -->
+    {% include 'header.html' %}
+    {% include 'messages.html' %}
+    
+    
+    <!-- Banner Area Starts -->
+    <section class="banner-area">
+        {% block content %}
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6 px-0">
+                    <div class="banner-bg"></div>
+                </div>
+                <div class="col-lg-6 align-self-center">
+                    <div class="banner-text">
+                        {% if notifications.count > 0 %}
+                            <h3>Notifications</h3>
+                            {% for n in notifications %}
+                                <p><a href="/authentication/notification/{{n.id}}/">{{n.title}}</a></p>
+                            {% endfor %}
+                        {% endif %}
+                        <h1>Do my <span>assignment</span> for me.</h1>
+                        <p class="py-3">Get help with your assignment from competent tutors</p>
+                        <a href="{% url 'assignments:upload' %}" class="secondary-btn">order now<span class="flaticon-next"></span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Banner Area End -->
+
+    
+    <!-- Feature Area Starts -->
+    <section class="feature-area section-padding2">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="single-feature mb-4 mb-lg-0">
+                        <h4>Academic writing services</h4>
+                        <p class="py-3">We offer academic writing services to students in High School, College, Undergraduate, 
+                            Masters and PhD. All you need to do is provide all the order details via the order form, make payment and wait for the awesome 
+                            paper in your email or download it from your account with us. For online classes, we help you complete all the tasks within the 
+                            deadline. We offer assignment help in over 96 subject areas. Some of the most popular ones include math homework help, online 
+                            statistics help, accounting help, computer science assignments, geometry assignments among others.
+                            Therefore, whether you are looking for physics help, biology help, chemistry help, economics help, finance help, 
+                            help with English homework, help with webassign answers or any college homework help, truth be told, you are surely at the right place.
+                             In addition, do not forget to check out our study tips that have helped 10,000+ students across the globe to learn better.
+                            </p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="single-feature mb-4 mb-lg-0">
+                        <h4>PROFESSIONAL OR BUSINESS WRITING</h4>
+                        <p class="py-3">We help professionals complete their business writing. 
+                            Such professional writings include Resumes, CVs, 
+                            Cover letters, Business Plans and Powerpoint presentations.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="single-feature">
+                        <h4>EDITING AND PROOFREADING</h4>
+                        <p class="py-3">
+                            All our papers go through a thorough editing procedure before being sent to customers. 
+                            If you have a paper that you feel needs an editors touch contact our team for a specialised quote on any paper. 
+                            Our editing and proofreading services are top notch to help you excel in the best way possible.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Feature Area End -->
+
+    <!-- Category Area Starts -->
+    <section class="category-area section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-top text-center">
+                        <h2>Elite Homework Doers</h2>
+                        <p>A Homework service that offers premium papers to students at all academic levels in over 96 subjects areas</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-category text-center mb-4">
+                        <img src="{% static 'images/cat1.png' %}" alt="category">
+                        <h4>Quality Score</h4>
+                        <h5>9.7/10</h5>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-category text-center mb-4">
+                        <img src="{% static 'images/cat2.png' %}" alt="category">
+                        <h4>Years in business</h4>
+                        <h5>0 years</h5>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-category text-center mb-4">
+                        <img src="{% static 'images/cat3.png' %}" alt="category">
+                        <h4>Pages completed daily</h4>
+                        <h5>250</h5>
+                    </div>
+                </div>
+            
+            </div>
+        </div>
+    </section>
+    <!-- Category Area End -->
+
+    <!-- Jobs Area Starts -->
+    <section class="jobs-area section-padding3">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="jobs-title">
+                        <h2>Current Order Activity</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="jobs-tab tab-item">
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#recent" role="tab" aria-controls="home" aria-selected="true">recent</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="recent" role="tabpanel" aria-labelledby="home-tab">
+                            <div class="single-job mb-4 d-lg-flex justify-content-between">
+                                <div class="job-text">
+                                    <h4>Chat</h4>
+                                    <ul class="mt-4">
+                                        <li class="mb-3"><h5><i class="fa fa-map-marker"></i> Support message on</h5></li>
+                                        <li class="mb-3"><h5><i class="fa fa-pie-chart"></i> order .....</h5></li>
+                                        <li><h5><i class="fa fa-clock-o"></i> Dec 11, 2018</h5></li>
+                                    </ul>
+                                </div>
+                                <div class="job-img align-self-center">
+                                    <img src="{% static 'images/job1.png' %}" alt="job">
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+            <div class="more-job-btn mt-5 text-center">
+                <a href="#" class="template-btn">view more activities..</a>
+            </div>
+        </div>
+    </section>
+    <!-- Jobs Area End -->
+
+    <!-- Newsletter Area Starts -->
+    <section class="newsletter-area section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-top text-center">
+                        <h2>The Elite HomeworkDoers website.</h2>
+                        <p>Looking for a reliable assignment help website can be daunting task for any student today. 
+                            Top grades are harder to score and plagiarism can get you kicked out of school. 
+                            Students who have used writing services in the past have been frustrated due to poor quality, lateness and plagiarism. 
+                            Our service was established to fill the existing gap in the market by providing premium papers 
+                            that are 100% original and delivered in time.</p>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+    <!-- Newsletter Area End -->
+
+    <!-- Employee Area Starts -->
+    <section class="employee-area section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-top text-center">
+                        <h2>Happy employee</h2>
+                        <p>Open lesser winged midst wherein may morning</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="employee-slider owl-carousel">
+                        <div class="single-slide d-sm-flex">
+                            <div class="slide-img employee1">
+                                <div class="hover-state">
+                                    <div class="hover-text text-center">
+                                        <h3>david aron</h3>
+                                        <h5>Facebook</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slide-text align-self-center">
+                                <i class="fa fa-quote-left"></i>
+                                <p>Appear, called day. Sixth two after eve moved called winged very heaven two lights let all third gathered.</p>
+                            </div>
+                        </div>
+                        <div class="single-slide d-sm-flex">
+                            <div class="slide-img employee2">
+                                <div class="hover-state">
+                                    <div class="hover-text text-center">
+                                        <h3>david aron</h3>
+                                        <h5>Twitter</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slide-text align-self-center">
+                                <i class="fa fa-quote-left"></i>
+                                <p>Appear, called day. Sixth two after eve moved called winged very heaven two lights let all third gathered.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Employee Area End -->
+
+
+
+    <!-- Download Area Starts -->
+    <section class="download-area section-padding">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="download-text">
+                        <h2>Our paper format</h2>
+                        <p class="py-3">Light earth also land can't. May you midst shall lights blessed in lights Have gathered image morning blessed grass him. Appear female rule all seas she'd winged</p>
+                        <ul>
+                            <li><i class="fa fa-check"></i>
+                                Double / Single spacing
+                            </li>
+                            <li><i class="fa fa-check"></i>
+                                Times New Roman 12pt
+                            </li>
+                            <li><i class="fa fa-check"></i>
+                                275 Words per page
+                            </li>
+                            <li><i class="fa fa-check"></i>
+                                ( APA, MLA, Chicago ) All Referencing styles
+                            </li>
+                            
+                        </ul>
+                    </div>
+                <div class="col-lg-6 pr-0">
+                </div>
+            </div>
+        </div>
+            {% endblock %}
+        <button class="open-button" onclick="openForm()"> <i class="fa fa-comments"></i> Support</button>
+        <div class="chat-popup" id="myForm">
+        <form action="/action_page.php" class="form-container">
+            <h4>Chat With Support Team.</h4>
+
+            <label for="msg"><b>Message</b></label>
+            <textarea placeholder="Type message.." name="msg" required></textarea>
+
+            <button type="submit" class="btn">Send</button>
+            <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+        </form>
+        </div>
+
+    </section>
+    <!-- Download Area End -->
+    
+    <!-- Footer Area End -->
+    {% include 'footer.html' %}
+    
+    <!-- Javascript -->
+    {% include 'scripts.html' %}
+</body>
+</html>

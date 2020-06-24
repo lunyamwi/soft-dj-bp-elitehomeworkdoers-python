@@ -1,0 +1,22 @@
+{% load crispy_forms_tags %}
+{% include 'links.html' %}
+{% include 'header.html' %}
+{% block content %}
+<div class="container">
+    <div class="card">
+    <div class="card-header">
+        <h2>Order Now</h2>
+    </div>
+    <div class="card-body">
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form|crispy}}
+            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+        </form>    
+    </div>
+    
+    </div>
+    
+</div>
+
+{% endblock %}

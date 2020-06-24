@@ -1,0 +1,24 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+django = "*"
+channels = "*"
+dj-stripe = "*"
+stripe = "*"
+channels-redis = "*"
+selenium = "*"
+django-countries = "*"
+django-filter = "*"
+django-widget-tweaks = "*"
+django-crispy-forms = "*"
+websocket-client = "*"
+requests = "*"
+gunicorn = "*"
+
+[requires]
+python_version = "3.6"
