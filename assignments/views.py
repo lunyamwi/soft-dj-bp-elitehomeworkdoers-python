@@ -5,6 +5,7 @@ from .forms import AssignmentDocumentForm,AssignmentEditForm
 from .models import Assignments
 from .filters import AssignmentFilter
 from payments.models import UserMembership
+from authentication.models import Notification
 
 # Create your views here.
 def AssignmentCategoryView(request):
@@ -24,7 +25,7 @@ def assignment_upload(request):
         if form.is_valid():
             form.save()
             messages.success(request,'Assignment has successfully uploaded')
-            return redirect('index')
+            return redirect('assignments:search')
     else:
         form=AssignmentDocumentForm()
     return render(request,'upload.html',{
@@ -106,5 +107,24 @@ def assignment_detail(request, pk):
 def search_assignment(request):
     assignment_list = Assignments.objects.all()
     assignment_filter = AssignmentFilter(request.GET, queryset=assignment_list)
-    return render(request, 'assignment_detail.html', {'filter': assignment_filter})
+
+    data = Assignments.objects.all().first()
+    
+    user_membership=UserMembership.objects.filter(user=request.user).first()
+    # if user_membership:
+    # if user_membership is not None:
+    # import pdb; pdb.set_trace()
+    user_membership_type=user_membership.membership.membership_type
+
+    assignment_allowed_memberships=data.allowed_memberships.all() 
+
+    data = None
+    # if user_membership_type is not None
+
+    if assignment_allowed_memberships.filter(membership_type=user_membership_type).exists():
+        data = data
+
+    if request.user.is_authenticated:
+        notifications=Notification.objects.filter(user=request.user,viewed=False)
+    return render(request, 'assignment_detail.html', {'data': data,'filter':assignment_filter,'notifications':notifications})
         

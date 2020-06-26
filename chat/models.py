@@ -35,6 +35,7 @@ class ThreadManager(models.Manager):
                 return obj, True
             return None, False
 
+       
 
 class Thread(models.Model):
     first        = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='chat_thread_first')
@@ -61,3 +62,6 @@ class ChatMessage(models.Model):
     user        = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='sender', on_delete=models.CASCADE)
     message     = models.TextField()
     timestamp   = models.DateTimeField(auto_now_add=True)
+
+    def last_10_messages():
+            return ChatMessage.objects.order_by('-timestamp').all()[:10]

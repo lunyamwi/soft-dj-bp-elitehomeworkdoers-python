@@ -114,6 +114,7 @@ class MembershipSelectView(ListView):
         return HttpResponseRedirect(reverse('payments:payment')) 
 
 
+
 def PaymentView(request):
     user_membership=get_user_membership(request)
     selected_membership=get_selected_membership(request)

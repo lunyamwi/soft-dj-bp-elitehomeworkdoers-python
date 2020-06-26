@@ -13,9 +13,10 @@
             <li class="nav-item"><a href="#" class="nav-link">FAQs</a></li>
             <li class="nav-item"><a href="#" class="nav-link">How it works</a>
             </li>
+            {% if request.user.is_authenticated %}
             <li class="nav-item"><a href="{% url 'assignments:search' %}" class="nav-link">View assignments</a>
             </li>
-            <li class="nav-item"><a href="{% url 'assignments:category' %}" class="nav-link">Search assignments</a></li>
+            {% endif %}
             <li class="nav-item"><a href="#" class="nav-link">Contact us</a></li>
             <li class="nav-item"><a href="{% url 'assignments:upload' %}" class="nav-link">order now</a></li>
             {% if request.user.is_authenticated%}
@@ -33,8 +34,8 @@
             {% endif %}
             <li class="nav-item dropdown" >
                 {% if request.user.is_superuser %}
-                <a  class="nav-link btn btn-info btn-sm" href="/messages/marko" >
-                    <i class="fa fa-user">Head to Admin</i>
+                <a  class="nav-link btn btn-info btn-sm" href="{% url 'chat:index' %}" >
+                    <i class="fa fa-user">Admin Dashboard</i>
                 </a>
                 {% endif %}
             </li>

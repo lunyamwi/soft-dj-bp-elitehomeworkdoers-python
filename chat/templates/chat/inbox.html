@@ -6,6 +6,7 @@
 <div class="container">
 
     {% for message in object.chatmessage_set.all %}
+    
     <p>{{message.message}}</p>      
     {% endfor %}
 </div>

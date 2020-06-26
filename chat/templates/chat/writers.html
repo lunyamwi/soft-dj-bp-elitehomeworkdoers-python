@@ -1,0 +1,92 @@
+<div class="container-fluid">    
+<h3>Chat with {% if user != object.first %}{{ object.first }}{% else %}{{ object.second }}{% endif %}</h3>
+<!-- Content Row -->
+<div class="row">
+
+    <!-- Content Column -->
+      <!-- Project Card Example -->
+      <!-- Color System -->
+
+    <div class="col-lg-6 mb-4">
+
+      <!-- Illustrations -->
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Chat Section</h6>
+        </div>
+        <div class="card-body">
+          <div class="text-center">
+            <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="img/undraw_posting_photo.svg" alt="">
+          </div>
+          {% for chat in object.chatmessage_set.all %}
+          <strong class="primary-font">{{chat.user}}</strong> <small class="pull-right text-muted">
+          <span class="glyphicon glyphicon-time"></span>{{chat.timestamp|timesince}}</small>
+          <p>
+            {{ chat.message }} &rarr;
+          </p>
+          {% endfor %}
+          <form id='form' method='POST'> {% csrf_token %}
+            <input type="hidden" id="myUsername" value="{{user.username}}"/>
+                {{user.username}}
+                {{form.as_p }}
+            <input type='submit' class='btn btn-primary'/>
+        </form>
+
+        </div>
+      </div>
+
+      <!-- Approach -->
+
+</div>
+
+
+{% endblock %}
+
+{% block script %}
+
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/reconnecting-websocket/1.0.0/reconnecting-websocket.min.js">
+</script>
+<script>
+// websocket scripts
+var loc=window.location
+console.log(loc)
+var formData=$("#form")
+var msgInput=$("#id_message")
+var chatHolder=$("#chat-items")
+var me=$("#myUsername").val()
+
+var wsStart='ws://'
+if (loc.protocol=='https:'){
+    wsStart='wss://'
+}
+var endpoint=wsStart+loc.host+loc.pathname;
+var socket=new ReconnectingWebSocket(endpoint);
+
+socket.onmessage=function(e){
+    console.log("message",e)
+    console.log(e.data)
+    var chatDataMsg=JSON.parse(e.data)
+    chatHolder.append("<li>"+chatDataMsg.message +"via"+chatDataMsg.username+"</li>")
+}
+socket.onopen=function(e){
+    console.log("open",e)
+    formData.submit(function(event){
+        event.preventDefault();
+        var msgText=msgInput.val()  
+        // chatHolder.append("<li>"+msgText+"via"+me+"</li>");
+        var formDataSerialized=formData.serialize()
+        var finalData={
+            "message":msgText
+        } 
+        socket.send(JSON.stringify(finalData))
+        formData[0].reset()
+    })
+}
+socket.onerror=function(e){
+    console.log("error",e)
+}
+socket.onclose=function(e){
+    console.log("close",e)
+}
+
+</script>

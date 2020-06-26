@@ -1,30 +1,39 @@
-{% include 'links_b3.html' %}
+{% include 'links.html' %}
+{% include 'header.html' %}
 
 
 <div class="container">
-    <h1>Select a quota to get into:</h1>
-    <div class="row">
-        {% for object in object_list %}
-            <div class="col-sm-4 col-md-4"> 
-                <h2>{{object.membership_type}}</h2>
-                <p>Price:${{object.price}}</p>
-                <h4>Assignments included in this quote</h4>
-                <ul>
-                    {% for assignment in object.assignments_set.all %}
-                        <li>{{assignment}}</li>
-                    {% endfor %}
-                </ul>
-                <form action="{% url 'payments:select' %}" method="post">
-                    {% csrf_token %}
-                    {% if object.membership_type != current_membership %}
-                    <button class="btn btn-warning">Get into this quota</button>
-                    {% else %}
-                    <small>You are currently under this quota</small>
-                    {% endif %}
-                    <input type="hidden" name="membership_type" value="{{object.membership_type}}">
-                </form>
-            </div>
+    <div class="card">
+        <div class="card-header">
+            <h3>Complete payment:</h3>
 
-        {% endfor %}
+        </div>
+        <div class="card-body">
+            <div class="row">
+                {% for object in object_list %}
+                    <div class="col-6"> 
+                        <h2>{{object.get_membership_type_display}}</h2>
+                        <p>Price:${{object.price}}</p>
+                        <h4>Assignments under this category</h4>
+                        <ul>
+                            {% for assignment in object.assignments_set.all %}
+                                <li>{{assignment}}</li>
+                            {% endfor %}
+                        </ul>
+                        <form action="{% url 'payments:select' %}" method="post">
+                            {% csrf_token %}
+                            {% if object.membership_type != current_membership %}
+                            <button class="btn btn-warning">Complete Payment</button>
+                            {% else %}
+                            <small>You are currently under free status</small>
+                            {% endif %}
+                            <input type="hidden" name="membership_type" value="{{object.membership_type}}">
+                        </form>
+                    </div>
+        
+                {% endfor %}
+            </div>
+        </div>
     </div>
+    
 </div>
